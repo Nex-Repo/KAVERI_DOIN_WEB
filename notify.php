@@ -1,0 +1,49 @@
+<script 
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script>
+  
+setInterval(function(){ loadnotify();
+},10000);
+
+
+function loadnotify()
+{
+
+    var ajaxRequest;  // The variable that makes Ajax possible!
+    try{
+      // Opera 8.0+, Firefox, Safari
+      ajaxRequest = new XMLHttpRequest();
+    } catch (e){
+      // Internet Explorer Browsers
+      try{
+        ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+      } catch (e) {
+             try{
+          ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+         }
+                    catch (e)
+                     {
+          // Something went wrong
+          alert("Your browser broke!");
+          return false;
+           }
+      }
+    }
+    // Create a function that will receive data sent from the server
+     ajaxRequest.onreadystatechange = function(){    
+      if(ajaxRequest.readyState ==4)
+        {   
+      if(ajaxRequest.status == 200)
+      {
+      document.getElementById('notify').innerHTML = ajaxRequest.responseText;
+      }
+     }
+    }
+    //alert("Here1");
+    ajaxRequest.open("POST", "notification.php", true); 
+    ajaxRequest.send(null);
+  
+}
+</script>
